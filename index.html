@@ -260,6 +260,7 @@
 </style>
 
 <script>
+    const port = 5679;  // 服务器端口号
     function 生成文章() {
         params = {
             name: document.getElementById("name").value,
@@ -273,7 +274,7 @@
                 paramString += (key + "=" + params[key] + "&");
             }
         }
-        const url = "http://127.0.0.1:5679/bullshit_oil" + paramString;
+        const url = `http://127.0.0.1:${port}/bullshit_oil` + paramString;
         // 发送含参数的GET请求
         fetch(url)
         .then((response) => {
