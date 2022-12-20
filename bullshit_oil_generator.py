@@ -39,7 +39,7 @@ def generate_bullshit_oil(
                 你们.append(random.choice(dict_))
             elif key == "漂亮的句子":
                 漂亮的句子.append(random.choice(dict_))
-            elif key == "环境描写":
+            elif key == "细节描写":
                 细节描写.append(random.choice(dict_))
             你们 = list(dict.fromkeys(你们))  # Remove duplicate elements
             漂亮的句子 = list(dict.fromkeys(漂亮的句子))
