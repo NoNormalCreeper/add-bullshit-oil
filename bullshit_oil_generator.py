@@ -63,4 +63,4 @@ def generate_bullshit_oil(
     return result
 
 
-print(generate_bullshit_oil(100, name="小明", class_="三年级6班", event="考试"))
+# print(generate_bullshit_oil(100, name="小明", class_="三年级6班", event="考试"))
