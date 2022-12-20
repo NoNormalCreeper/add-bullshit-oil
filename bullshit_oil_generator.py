@@ -61,7 +61,7 @@ def generate_bullshit_oil(
     )   # 开头会有一个句号，故不需要在开头加句号
     if result[0] == FS:
         result = result[1:]
-    result = result.replace("！。", "！").replace("？。", "？").replace("。。", "。")
+    result = result.replace("！。", "！").replace("？。", "？").replace("。。", "。").replace('"', '')
     
     return result
 

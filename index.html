@@ -284,7 +284,7 @@
         return response.text();
         })
         .then((text) => {
-            document.getElementById("文章").innerText = text;
+            document.getElementById("文章").innerText = text.replace('"', '').replace('"', '');
         });
     }
     function changeValue() {
