@@ -9,7 +9,7 @@
 
 <body>
     <div id="主体">
-        <h1 id="标题">加油稿生成器</h1>
+        <h1 id="标题">运动会加油稿生成器</h1>
         <div id="参数">
             <span>人物</span>
             <input type="text" id="name"></input>
@@ -20,8 +20,8 @@
             <span>项目</span>
             <input type="text" id="event"></input>
             <div>
-                <input id="range" type="range" min="20" defaultValue="80" max="400" step="10" onchange="">
-                <span id="value">80 字</span>
+                <input id="range" type="range" min="20" defaultValue="80" max="400" step="10">
+                <span id="value"></span>
             </div>
             <button onclick="生成文章()">加油！</button>
         </div>
@@ -98,14 +98,14 @@
         #参数 button {
             border: 0;
             padding: 3px 7px 3px 7px;
-            margin: 14px 0 0 0;
+            margin: 14px 0 20px 0;
             vertical-align: top;
             font-size: 1.4rem;
             background: #d90c0c;
             color: #efefef;
         }
 
-        #文章 div {
+        div#文章 {
             margin-top: 6px;
             font-size: 2rem;
             text-align: justify;
@@ -198,7 +198,7 @@
         #参数 button {
             border: 0;
             padding: 5px 15px 5px 15px;
-            margin: 14px 0 0 0;
+            margin: 14px 0 20px 0;
             vertical-align: top;
             font-size: 0.75rem;
             background: #d90c0c;
@@ -285,8 +285,9 @@
         .then((text) => {
             document.getElementById("文章").innerText = text;
         });
-
-
-                
     }
+    function changeValue() {
+        document.getElementById("value").innerText = document.getElementById("range").value + " 字";
+    }
+    setInterval(changeValue, 20);
 </script>
