@@ -24,11 +24,14 @@ def generate_bullshit_oil(
 ) -> str:  # sourcery skip: inline-immediately-returned-variable, switch
     """Generate a random bullshit oil."""
 
-    necessary_component, optional_component = [], []
-    necessary_component.extend(
-        random.choice(dict_).format(name=name, class_=class_, event=event)
-        for _, dict_ in ingredients["必需"].items()
-    )
+    necessary_component = ["", "加油吧，None！"]
+    # necessary_component.extend(
+    #     random.choice(dict_).format(name=name, class_=class_, event=event)
+    #     for _, dict_ in ingredients["必需"].items()
+    # )
+    while 'None' in necessary_component[1]:
+        necessary_component[1] = random.choice(ingredients["必需"]["落实对象"]).format(name=name, class_=class_, event=event)
+    necessary_component[0] = random.choice(ingredients["必需"]["呼喊句"])
     necessary_component_length = get_text_length(necessary_component)
 
     # 可选列表中的内容优先级从上到下依次降低，但排列成文本时优先级从上到下依次增大，故最后需要反转
@@ -63,4 +66,4 @@ def generate_bullshit_oil(
     return result
 
 
-# print(generate_bullshit_oil(100, name="小明", class_="三年级6班", event="考试"))
+# print(generate_bullshit_oil(100))
