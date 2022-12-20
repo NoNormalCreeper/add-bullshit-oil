@@ -29,10 +29,11 @@ def generate_bullshit_oil(
         random.choice(dict_).format(name=name, class_=class_, event=event)
         for _, dict_ in ingredients["必需"].items()
     )
+    necessary_component_length = get_text_length(necessary_component)
 
     # 可选列表中的内容优先级从上到下依次降低，但排列成文本时优先级从上到下依次增大，故最后需要反转
     你们, 漂亮的句子, 细节描写 = [], [], []
-    while get_text_length(你们, 漂亮的句子, 细节描写) < length - 10:
+    while get_text_length(你们, 漂亮的句子, 细节描写) < length - necessary_component_length :
         for key, dict_ in ingredients["可选"].items():
             if key == "你们...":
                 你们.append(random.choice(dict_))
@@ -43,7 +44,7 @@ def generate_bullshit_oil(
             你们 = list(dict.fromkeys(你们))  # Remove duplicate elements
             漂亮的句子 = list(dict.fromkeys(漂亮的句子))
             细节描写 = list(dict.fromkeys(细节描写))
-            if get_text_length(你们, 漂亮的句子, 细节描写) >= length - 10:
+            if get_text_length(你们, 漂亮的句子, 细节描写) >= length - necessary_component_length:
                 break
 
     result = (
@@ -55,10 +56,11 @@ def generate_bullshit_oil(
         + FS
         + ''.join(necessary_component)
     )   # 开头会有一个句号，故不需要在开头加句号
-    result = result[2:]
+    if result[0] == FS:
+        result = result[1:]
     result = result.replace("！。", "！").replace("？。", "？").replace("。。", "。")
     
     return result
 
 
-print(generate_bullshit_oil(20, name="小明", class_="三年级6班", event="考试"))
+print(generate_bullshit_oil(100, name="小明", class_="三年级6班", event="考试"))
