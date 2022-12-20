@@ -19,7 +19,7 @@
             <br>
             <span>项目</span>
             <input type="text" id="event"></input>
-            <div>
+            <div style="vertical-align: middle;">
                 <input id="range" type="range" min="20" defaultValue="80" max="400" step="10">
                 <span id="value"></span>
             </div>
@@ -42,6 +42,7 @@
             @NoNormalCreeper</a>
         </p>
     </div>
+    <script src="main.js"></script>
 </body>
 
 </html>
@@ -255,40 +256,6 @@
         display: inline;
     }
     span#value {
-        margin: 10px 0;
+        margin: auto 0;
     }
 </style>
-
-<script>
-    const port = 5679;  // 服务器端口号
-    function 生成文章() {
-        params = {
-            name: document.getElementById("name").value,
-            class_: document.getElementById("class_").value,
-            event: document.getElementById("event").value,
-            length: document.getElementById("range").value
-        };
-        paramString = "?"
-        for (var key in params) {
-            if (params[key] != "") {
-                paramString += (key + "=" + params[key] + "&");
-            }
-        }
-        const url = `http://127.0.0.1:${port}/bullshit_oil` + paramString;
-        // 发送含参数的GET请求
-        fetch(url)
-        .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-        }
-        return response.text();
-        })
-        .then((text) => {
-            document.getElementById("文章").innerText = text.replace('"', '').replace('"', '');
-        });
-    }
-    function changeValue() {
-        document.getElementById("value").innerText = document.getElementById("range").value + " 字";
-    }
-    setInterval(changeValue, 20);
-</script>

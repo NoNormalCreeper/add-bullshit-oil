@@ -89,6 +89,9 @@ function braceFormat(text, dict) {
 function generateBullshitOil(
     length = 80, name = null, class_ = null, event = null
 ) {
+    name = name || null;
+    class_ = class_ || null;
+    event = event || null;
     let necessaryComponent = ["", "加油吧，null！"];
     while (necessaryComponent[1].includes('null')) {
         necessaryComponent[1] = braceFormat(randomChoice(ingredients["必需"]["落实对象"]),
@@ -137,3 +140,22 @@ function generateBullshitOil(
 
 
 // console.log(generateBullshitOil(20, "张三", "一年级", "跑步比赛"));
+
+
+// 以下为前端代码
+const port = 5679;  // 服务器端口号
+function 生成文章() {
+    params = {
+        name: document.getElementById("name").value,
+        class_: document.getElementById("class_").value,
+        event: document.getElementById("event").value,
+        length: document.getElementById("range").value
+    };
+    const result = generateBullshitOil(params.length, params.name, params.class_, params.event);
+    document.getElementById("文章").innerText = result;
+    return result;
+}
+function changeValue() {
+    document.getElementById("value").innerText = document.getElementById("range").value + " 字";
+}
+setInterval(changeValue, 20);
