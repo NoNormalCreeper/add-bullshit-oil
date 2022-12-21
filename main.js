@@ -208,7 +208,7 @@ function getTextLength(...args) {
 function randomChoice(array) {
     // if is "" , choose again
     newArray = array.filter((item) => item !== "");
-    return newArray[Math.floor(Math.random() * array.length)];
+    return newArray[Math.floor(Math.random() * newArray.length)];
 }
 
 function braceFormat(text, dict) {
