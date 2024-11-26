@@ -1,6 +1,6 @@
-const ingredients = {
-    "必需": {
-        "呼喊句": [
+const Materialien = {
+    notwendig: {
+        Ausrufe: [
             "拼搏吧！",
             "我为你们呐喊！",
             "你们是最棒的！",
@@ -18,13 +18,8 @@ const ingredients = {
             "相信自己，梦想在你手中，这是你的天地！",
             "是时候表演真正的技术了！",
             "胜利在向你微笑！",
-            "",
-            "",
-            "",
-            "",
-            ""
         ],
-        "落实对象": [
+        Subjekt: [
             "加油吧，{class_}的{event}健儿们！",
             "加油，{class_}的{event}选手{name}！",
             "加油吧，{class_}的健儿们！",
@@ -36,27 +31,10 @@ const ingredients = {
             "你是{class_}的骄傲，你是{class_}的希望！",
             "{name}，你是{class_}的骄傲，你是{class_}的希望！",
             "昨天你们以{class_}为荣耀，今天{class_}因你们而自豪！",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
         ]
     },
-    "可选": {
-        "你们...": [
+    unnotwendig: {
+        Ihr: [
             "在我们心中，你是一个神话",
             "萧瑟的秋风，挡不住你们破竹的锐气",
             "时代的强音正在你的脚下踏响",
@@ -91,20 +69,8 @@ const ingredients = {
             "你们有着大浪拍岸的豪迈，你们有着春日阳光的明媚，你们是寒冷冬日里的温暖，让大家的心随你们燃了起来",
             "赛场上的拼搏是你们的浪漫，我相信阳光会为你们加冕",
             "你的呼吸 ， 带着脉搏心跳的频率，随着秋日暖阳呼啸而来，掀起一阵骤风，像是必胜的信念，像是斗志的昂扬。",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
         ],
-        "漂亮的句子": [
+        SchöneSätze: [
             "用青春和热血来铺洒红色的跑道，用激情点燃胜利的曙光",
             "你是运动场的心脏，跳动梦想；你是漫长路的精神，激励辉煌",
             "也许流星并不少见，但它燃烧的刹那，留给人间最美丽的回忆！也许笑脸并不少见，但胜利的喜悦，总会留给世界精彩的一瞬！",
@@ -123,35 +89,11 @@ const ingredients = {
             "一旦踏上征途，便不再回头，不去想是否能够成功，不去看昨日有多艰辛，只顾风雨兼程，为了冲过终点那瞬间的耀眼，义无反顾。",
             "大鹏展翅传扶摇而上九万里青天，鲤鱼打挺逆洋流而上飞跃战龙门",
             "汗流千日，只为今日一搏；疾踏百步，只为终点一触",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
         ],
-        "细节描写": [
+        DetaillierteBeschreibung: [
             "晨风轻轻地唤醒骄阳",
             "校园的操场传来发令枪的声响",
             "湿透的衣衫，满头的大汗，无限追求奋力追赶",
-            "",
             "你们的欢笑飞扬在赛场",
             "环形的跑道，一圈又一圈的坚持，毅力与精神活跃在会场上",
             "湿透的衣衫，满头的大汗，无限追求奋力追赶",
@@ -162,136 +104,82 @@ const ingredients = {
             "听那清脆的枪声响彻天际；听那呐喊与掌声混合的交响乐。它们粲然升起那跃动的渴望",
             "热血在赛场沸腾，巨人在赛场升起",
             "红色的跑道因有了你的身影而更加夺目，绿色的草坪因挥洒过你的汗水而更加葱郁",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
         ]
     }
 };
 
-FS = "。"  // Full stop
+const Punkt = "。";
 
-function getTextLength(...args) {
-    let length = 0;
-    for (let arg of args) {
-        for (let text of arg) {
-            length += text.length;
-        }
-    }
-    return length;
-}
+const Länge = (...args) => args.reduce((sum, arg) => sum + (arg instanceof Array ? Länge(...arg) : arg.length)
+    , 0);
 
-function randomChoice(array) {
-    // if is "" , choose again
-    newArray = array.filter((item) => item !== "");
-    return newArray[Math.floor(Math.random() * newArray.length)];
-}
+const durchmischen = (arr) => arr.sort(() => 0.5 - Math.random());
 
-function braceFormat(text, dict) {
-    // Example: '{age} years old', {'age': 18} -> '18 years old'
-    if (dict === null) {
+/// Example: '{age} Jahres alt', {'age': 18} -> '18 Jahres alt'
+function VorlageAusfüllen(text, dict) {
+    if (!dict) {
         return text;
     }
-    for (let key in dict) {
-        text = text.replaceAll(`{${key}}`, dict[key]);
-    }
-    return text;
+
+    return Object.entries(dict).reduce((text, [key, val]) => text.replaceAll(`{${key}}`, val), text)
 }
 
-function generateBullshitOil(
-    length = 80, name = null, class_ = null, event = null
+function ScheißeÖlGenerieren(
+    { länge = 80, name = null, class_ = null, event = null }
 ) {
-    name = name || null;
-    class_ = class_ || null;
-    event = event || null;
-    let necessaryComponent = ["", "加油吧，null！"];
-    while (necessaryComponent[1].includes('null')) {
-        necessaryComponent[1] = braceFormat(randomChoice(ingredients["必需"]["落实对象"]),
-            { 'name': name, 'class_': class_, 'event': event });
-    }
-    necessaryComponent[0] = randomChoice(ingredients["必需"]["呼喊句"]);
-    let necessaryComponentLength = getTextLength(necessaryComponent);
+    const validSätze = Object.entries({ name, class_, event }).reduce((list, [key, val]) => val ? list : list.filter((str) => !str.includes(`{${key}}`)), Materialien.notwendig["Subjekt"]);
 
-    let 你们 = [];
-    let 漂亮的句子 = [];
-    let 细节描写 = [];
-    while (getTextLength(你们, 漂亮的句子, 细节描写) < length - necessaryComponentLength) {
-        for (let [key, dict_] of Object.entries(ingredients["可选"])) {
-            if (key == "你们...") {
-                你们.push(randomChoice(dict_));
-            } else if (key == "漂亮的句子") {
-                漂亮的句子.push(randomChoice(dict_));
-            } else if (key == "细节描写") {
-                细节描写.push(randomChoice(dict_));
-            }
-            你们 = [...new Set(你们)];  // Remove duplicate elements
-            漂亮的句子 = [...new Set(漂亮的句子)];
-            细节描写 = [...new Set(细节描写)];
-            if (getTextLength(你们, 漂亮的句子, 细节描写) >= length - necessaryComponentLength) {
-                break;
-            }
-        }
-    }
+    durchmischen(Materialien.notwendig.Ausrufe);
+    const Ausruf = Materialien.notwendig.Ausrufe[0];
 
-    let result = (
-        细节描写.join(FS)
-        + FS
-        + 漂亮的句子.join(FS)
-        + FS
-        + 你们.join(FS)
-        + FS
-        + necessaryComponent.join("")
-    )   // 开头会有一个句号，故不需要在开头加句号
-    result = result.replaceAll("！。", "！").replaceAll("？。", "？").replaceAll("。。", "。").replaceAll('"', '')
-    if (result[0] == FS) {
-        result = result.substring(1);
-    }
+    durchmischen(validSätze);
+    const Subjekt = VorlageAusfüllen(validSätze[0],
+        { 'name': name, 'class_': class_, 'event': event });
 
-    return result;
+    const längeBleiben = länge - Länge(Ausruf, Subjekt);
+
+    const unnotwendigSätze = Object.entries(Materialien.unnotwendig).reduce((arr, [Typ, list]) => arr.concat(list.map((Satz) => [Typ, Satz])), []);
+
+    durchmischen(unnotwendigSätze);
+
+    const ausgewählteSätze = unnotwendigSätze.reduce((Sätze, val) => {
+        return (Länge(Sätze.map(([, Satz]) => Satz)) < längeBleiben) ? [...Sätze, val] : Sätze;
+    }, []);
+
+    const Ordung = {
+        DetaillierteBeschreibung: 1,
+        SchöneSätze: 2,
+        Ihr: 3
+    };
+    ausgewählteSätze.sort((a, b) => {
+        return Ordung[a] - Ordung[b];
+    });
+
+    return [...ausgewählteSätze.map(([, Satz]) => Satz), Ausruf, Subjekt]
+        .join(Punkt).replaceAll("！。", "！")
+        .replaceAll("？。", "？")
+        .replaceAll("。。", "。")
+        .replaceAll('"', '')
+        .replaceAll(/^。/g, "");
 }
 
 
-// console.log(generateBullshitOil(20, "张三", "一年级", "跑步比赛"));
-
-
-// 以下为前端代码
-const port = 5679;  // 服务器端口号
-function 生成文章() {
-    params = {
+function generieren() {
+    const params = {
         name: document.getElementById("name").value,
         class_: document.getElementById("class_").value,
         event: document.getElementById("event").value,
-        length: document.getElementById("range").value
+        länge: document.getElementById("range").value
     };
-    const result = generateBullshitOil(params.length, params.name, params.class_, params.event);
-    document.getElementById("文章").innerText = result;
-    return result;
+    document.getElementById("文章").innerText = ScheißeÖlGenerieren(params);
 }
-function changeValue() {
-    document.getElementById("value").innerText = document.getElementById("range").value + " 字";
-}
-setInterval(changeValue, 20);
+
+const rangeEle = document.getElementById("range");
+const valueEle = document.getElementById("value");
+const handler = (evt) => {
+    valueEle.innerText = evt.target.value + " 字";
+};
+
+valueEle.innerText = rangeEle.value + " 字";
+rangeEle.addEventListener("change", handler);
+rangeEle.addEventListener("input", handler);

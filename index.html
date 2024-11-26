@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -5,6 +6,7 @@
     <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="icon" href="data:image/ico;base64,aWNv">
+    <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
@@ -23,14 +25,11 @@
                 <input id="range" type="range" min="20" defaultValue="80" max="400" step="10">
                 <span id="value"></span>
             </div>
-            <button onclick="生成文章()">加油！</button>
+            <button onclick="generieren()">加油！</button>
         </div>
         <div id="文章"></div>
     </div>
-    <!-- <div id="声明">
-        <p id="声明文字">请勿将生成的稿件用于正规用途</p>
-        <p><a class="链接" href="声明.txt">声明</a></p>
-    </div> -->
+
     <div id="页脚">
         <p>
             <a class="链接" href="https://github.com/NoNormalCreeper/add-bullshit-oil"><svg class="图标" viewBox="0 0 16 16"
@@ -46,216 +45,3 @@
 </body>
 
 </html>
-
-<style>
-    @media screen and (max-width: 1024px) {
-        html {
-            font-size: 2vw;
-            color: #333333;
-        }
-
-        body {
-            margin: 0;
-        }
-
-        #主体 {
-            border: 2px solid #333333;
-            margin: 6px;
-            padding: 6px;
-            background: #f8f8f8;
-        }
-
-        #标题 {
-            font-size: 3rem;
-            line-height: 3rem;
-            text-align: center;
-        }
-
-        #参数 {
-            text-align: center;
-            margin-top: 6px;
-            font-size: 0px;
-        }
-
-        #参数 span {
-            font-size: 2rem;
-            vertical-align: baseline;
-            margin-left: 6px;
-        }
-
-        #参数 input[type="text"] {
-            border: none;
-            border-bottom: #666666 2px solid;
-            padding: 1px 0 0 0;
-            margin: 0px 6px 0 6px;
-            vertical-align: baseline;
-            font-size: 2rem;
-            background: #f8f8f8;
-            color: #333333;
-            text-align: center;
-            min-width: 20%;
-        }
-
-        #参数 button {
-            border: 0;
-            padding: 3px 7px 3px 7px;
-            margin: 14px 0 20px 0;
-            vertical-align: top;
-            font-size: 1.4rem;
-            background: #d90c0c;
-            color: #efefef;
-        }
-
-        div#文章 {
-            margin-top: 6px;
-            font-size: 2rem;
-            text-align: justify;
-        }
-
-        #声明 {
-            float: left;
-            margin: 0 0 0 6px;
-        }
-
-        #声明 p {
-            margin: 0 0 3px 3px;
-            font-size: 1.4rem;
-        }
-
-        #声明文字 {
-            display: none;
-        }
-
-        #页脚 {
-            margin: 6px;
-        }
-
-        #页脚 p {
-            margin: 3px;
-            font-size: 1.4rem;
-            text-align: right;
-        }
-
-        .链接 {
-            color: #666666;
-        }
-
-        .图标 {
-            height: 1rem;
-            width: 1rem;
-            vertical-align: top;
-            margin-top: 2px;
-        }
-    }
-
-    @media screen and (min-width: 1024px) {
-        html {
-            font-size: 1.3vw;
-            color: #333333;
-        }
-
-        body {
-            margin: 0;
-        }
-
-        #主体 {
-            border: 2px solid #333333;
-            margin: 20px;
-            padding: 20px;
-            background: #f8f8f8;
-        }
-
-        #标题 {
-            font-size: 1.9rem;
-            line-height: 1.9rem;
-            text-align: center;
-        }
-
-        #参数 {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0px;
-        }
-
-        #参数 span {
-            font-size: 1rem;
-            vertical-align: baseline;
-            margin-left: 20px;
-        }
-
-        #参数 input[type="text"] {
-            border: none;
-            border-bottom: #666666 2px solid;
-            padding: 1px 0 0 0;
-            margin: 0px 20px 0 20px;
-            vertical-align: baseline;
-            font-size: 1rem;
-            background: #f8f8f8;
-            color: #333333;
-            text-align: center;
-            min-width: 20%;
-        }
-
-        #参数 button {
-            border: 0;
-            padding: 5px 15px 5px 15px;
-            margin: 14px 0 20px 0;
-            vertical-align: top;
-            font-size: 0.75rem;
-            background: #d90c0c;
-            color: #efefef;
-        }
-
-        #文章 div {
-            margin-top: 20px;
-            text-align: justify;
-        }
-
-        #声明 {
-            float: left;
-            margin: 0 0 0 20px;
-        }
-
-        #声明 p {
-            margin: 0 0 5px 5px;
-            font-size: 0.75rem;
-        }
-
-        #声明文字 {
-            display: none;
-        }
-
-        #页脚 {
-            margin: 20px;
-        }
-
-        #页脚 p {
-            margin: 5px;
-            font-size: 0.75rem;
-            text-align: right;
-        }
-
-        .链接 {
-            color: #666666;
-        }
-
-        #页脚 span {
-            padding: 2px 0 0 0;
-            vertical-align: baseline;
-        }
-
-        .图标 {
-            height: 0.7rem;
-            width: 0.7rem;
-            vertical-align: top;
-            margin-top: 4px;
-        }
-    }
-    input[type="range"] {
-        margin: 10px 10px;
-        display: inline;
-    }
-    span#value {
-        margin: auto 0;
-    }
-</style>
